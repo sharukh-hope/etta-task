@@ -1,6 +1,4 @@
-import { Geist, Geist_Mono, IBM_Plex_Sans } from "next/font/google";
-
-import "./globals.css";
+import { IBM_Plex_Sans } from "next/font/google";
 
 const plexSans = IBM_Plex_Sans({
   variable: "--font-plex-sans",

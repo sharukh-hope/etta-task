@@ -1,3 +1,19 @@
+@import "./core/allCore";
+@import "./buttons/allButtons";
+@import "./typography/allTypography";
+@import "./pages/allPages";
+@import "./components/allComponents";
+
 html {
   font-family: "IBM Plex Sans", sans-serif;
+}
+body {
+  margin: unset;
+  // background-color: #f1f4f9;
+}
+
+button {
+  border: unset;
+  width: fit-content;
+  cursor: pointer;
 }
