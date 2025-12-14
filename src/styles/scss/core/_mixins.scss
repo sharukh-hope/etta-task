@@ -1,0 +1,13 @@
+@mixin blackBerryGradientBackground {
+  background: radial-gradient(50% 50% at 50% 50%, #aa93e3 0%, #7547e5 100%);
+}
+@mixin strawberryGradientBackground {
+  background: radial-gradient(circle at 70% 60%, #ffd1d9 0%, #ff4e71 60%);
+}
+@mixin limeGradientBackground {
+  background: radial-gradient(circle at 70% 60%, #e0f7d1 0%, #4caf50 60%);
+}
+
+@mixin orangeGradient {
+  background: radial-gradient(circle at 70% 60%, #ffdeba 0%, #f38b03 60%);
+}

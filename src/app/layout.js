@@ -1,4 +1,5 @@
 import { IBM_Plex_Sans } from "next/font/google";
+import "../styles/css/app.css";
 
 const plexSans = IBM_Plex_Sans({
   variable: "--font-plex-sans",

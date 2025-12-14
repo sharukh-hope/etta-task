@@ -1,0 +1,49 @@
+.NavigationBarWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 40px;
+  .navLink {
+    text-decoration: none;
+    color: $white;
+  }
+  .mainLogo {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  .navLinks {
+    .navLink {
+      padding: 0px 32px;
+      font-size: 16px;
+    }
+  }
+  .userSpace {
+    .iconButton {
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-color: unset;
+      width: 30px;
+      height: 30px;
+    }
+    .iconCart {
+      background-image: url("../../../public/icons/shopping-bag-line.svg");
+      position: relative;
+      .cartItemsNumber {
+        width: 16px;
+        height: 16px;
+        background-color: red;
+        border-radius: 50%;
+        position: absolute;
+        top: -4px;
+        right: -2px;
+        font-size: 12px;
+        text-align: center;
+        color: white;
+      }
+    }
+    .iconUser {
+      margin-right: 24px;
+      background-image: url("../../../public/icons/account-circle-line.svg");
+    }
+  }
+}

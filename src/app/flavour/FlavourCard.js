@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const FlavourCard = ({
@@ -11,8 +12,10 @@ const FlavourCard = ({
   imageSource,
 }) => {
   /* state variables */
+  const navigateTo = `/flavour/${id}`;
 
   /* other hooks */
+  const router = useRouter();
 
   /* static variables */
 
@@ -27,7 +30,14 @@ const FlavourCard = ({
   /* render functions */
   const flavourImage = () => {
     return (
-      <div className={`flavourImageWrapper ${id} ${active ? "active" : ""}`}>
+      <div
+        className={`flavourImageWrapper ${id} ${active ? "active" : ""}`}
+        onClick={() => {
+          if (active) {
+            router.push(navigateTo);
+          }
+        }}
+      >
         <div className={`actualImageWrapper`}>
           <Image src={imageSource} alt={headerText} className="flavourImage" />
           <div className={"backgroundCircle"} />
