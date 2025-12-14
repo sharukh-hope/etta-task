@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 const FlavourCard = ({
   headerText,
@@ -12,7 +13,7 @@ const FlavourCard = ({
   imageSource,
 }) => {
   /* state variables */
-  const navigateTo = `/flavour/${id}`;
+  const [isLeaving, setIsLeaving] = useState(false);
 
   /* other hooks */
   const router = useRouter();
@@ -26,17 +27,20 @@ const FlavourCard = ({
   /* api calls */
 
   /* helper functions */
-
+  const handleFlavourDetailsClick = () => {
+    if (active) {
+      setIsLeaving(true);
+      setTimeout(() => {
+        router.push(`/flavour/${id}`);
+      }, [1000]);
+    }
+  };
   /* render functions */
   const flavourImage = () => {
     return (
       <div
         className={`flavourImageWrapper ${id} ${active ? "active" : ""}`}
-        onClick={() => {
-          if (active) {
-            router.push(navigateTo);
-          }
-        }}
+        onClick={handleFlavourDetailsClick}
       >
         <div className={`actualImageWrapper`}>
           <Image src={imageSource} alt={headerText} className="flavourImage" />
@@ -48,7 +52,7 @@ const FlavourCard = ({
   };
 
   return (
-    <div className="FlavourCardWrapper">
+    <div className={`FlavourCardWrapper ${isLeaving ? "leaving" : ""}`}>
       <div className="flavourBackground" />
       {flavourImage()}
       <div

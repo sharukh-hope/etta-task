@@ -1,5 +1,6 @@
 .FlavourDetailsWrapper {
   height: 100vh;
+  animation: appearSlow 0.25s;
 
   .flavourImageWrapper {
     position: absolute;
@@ -176,5 +177,14 @@
   }
   to {
     --angle: 360deg;
+  }
+}
+
+@keyframes appearSlow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

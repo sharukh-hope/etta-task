@@ -22,7 +22,6 @@ const FlavourDetails = ({}) => {
   /* other hooks */
 
   /* static variables */
-  console.log(slug);
 
   /* useRefs */
 

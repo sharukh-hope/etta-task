@@ -156,6 +156,20 @@
     }
   }
 }
+.FlavourCardWrapper.leaving {
+  animation: moveLeft 1s ease-in-out 0s 1 normal forwards;
+
+  .flavourImageWrapper {
+    .actualImageWrapper {
+      .flavourImage {
+      }
+      .backgroundCircle {
+        animation: expandEaseInOut 1s ease-in-out 0s 1 normal forwards;
+        // animation: name duration timing-function delay iteration-count direction fill-mode;
+      }
+    }
+  }
+}
 
 @keyframes expand {
   0% {
@@ -168,12 +182,15 @@
   }
 }
 
-@keyframes moveUp {
+@keyframes expandEaseInOut {
   0% {
-    transform: translateY(25%);
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
   }
   100% {
-    transform: translateY(0px);
+    transform: scale(10);
   }
 }
 @keyframes moveUpExpand {
@@ -184,5 +201,17 @@
   100% {
     transform: scale(1) translateY(0px);
     opacity: 1;
+  }
+}
+@keyframes moveLeft {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(25%);
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
   }
 }

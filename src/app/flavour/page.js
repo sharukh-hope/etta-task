@@ -56,8 +56,6 @@ const Flavour = ({}) => {
   return (
     <div className="FlavourWrapper">
       {Object.values(flavours).map((flavour, index) => {
-        console.log(flavour);
-
         return (
           <FlavourCard
             key={flavour.id}
@@ -66,10 +64,7 @@ const Flavour = ({}) => {
             headerText={flavour.headerText}
             description={flavour.description}
             textClassName={flavour.textClass}
-            callbackOnClick={() => {
-              console.log(flavour.id);
-              setActiveFlavour(flavour.id);
-            }}
+            callbackOnClick={() => setActiveFlavour(flavour.id)}
             active={activeFlavour === flavour.id}
             imageSource={flavour.imageSource}
           />
