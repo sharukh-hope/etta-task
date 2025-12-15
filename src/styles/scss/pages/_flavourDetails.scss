@@ -57,6 +57,7 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
+      z-index: +14;
       .iconArrow {
         border: 2px solid #fafafa;
         border-radius: 50%;
@@ -87,6 +88,7 @@
     gap: 16px;
     height: 80%;
     padding: 0px 100px;
+    width: fit-content;
 
     .headerText {
       font-family: var(--font-mina);
