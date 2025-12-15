@@ -1,7 +1,18 @@
 .FlavourDetailsWrapper {
   height: 100vh;
-  animation: appearSlow 0.25s;
-
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  top: 0;
+  //   animation: appearSlow 0.8s;
+  .backgroundGradient {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: +10;
+  }
   .flavourImageWrapper {
     position: absolute;
     top: 50%;
@@ -9,7 +20,8 @@
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    z-index: 2;
+    z-index: +11;
+
     .backgroundText {
       font-family: "Bangers", sans-serif;
       font-size: 32vw;
@@ -22,12 +34,14 @@
       transform: translate(-50%, -50%);
     }
     .backgroundEffect {
+      transition: all 0.5s;
+
       background-repeat: no-repeat;
       position: absolute;
-      max-width: 620px;
+      max-width: 680px;
       width: 100vw;
       height: 100vh;
-      max-height: 480px;
+      max-height: 540px;
       left: -80%;
       bottom: 20%;
       z-index: 1;
@@ -73,6 +87,7 @@
     gap: 16px;
     height: 80%;
     padding: 0px 100px;
+
     .headerText {
       font-family: var(--font-mina);
       font-weight: 700;
@@ -80,7 +95,7 @@
       line-height: 100%;
       margin: unset;
       color: white;
-      z-index: 3;
+      z-index: +12;
     }
     .descriptionText {
       color: #ffffffd6;
@@ -92,7 +107,7 @@
       letter-spacing: 0%;
       margin: unset;
       margin-bottom: 20px;
-      z-index: 3;
+      z-index: +12;
     }
     .primaryButton {
       position: relative;
@@ -101,7 +116,7 @@
       min-height: 44px;
       border-radius: 999px;
       border: none;
-      background: #a991e3;
+      background: transparent;
       color: white;
       font-size: 16px;
       font-weight: 500;
@@ -110,6 +125,7 @@
         inset 6px 6px 7px rgba(255, 255, 255, 0.38);
 
       overflow: hidden;
+      z-index: +12;
     }
     .primaryButton::before {
       content: "";
@@ -135,36 +151,79 @@
       pointer-events: none;
     }
   }
+  .quantityItemsWrapper {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    z-index: +10;
+    .quantityItem {
+      transition: all 0.5s;
+      width: 70px;
+      height: 70px;
+      border-radius: 100%;
+      background-color: rgba(54, 54, 54, 0.336);
+      color: white;
+      display: flex;
+      font-family: var(--font-outfit);
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .quantityItem.active {
+      background-color: rgba(255, 255, 255, 0.947);
+      color: black;
+    }
+  }
 }
 
+//flavour based styling
 .FlavourDetailsWrapper.orangeCrush {
-  @include orangeGradient();
+  .contentWrapper {
+    .primaryButton {
+      transition: 0.5s;
+      background: #fac996;
+      color: black;
+    }
+  }
+  .backgroundGradient {
+    @include orangeGradient();
+  }
   .backgroundEffect {
     background-image: url("../../../public/flavours/orangeBackground.png");
     background-repeat: no-repeat;
   }
 }
 .FlavourDetailsWrapper.strawberryYum {
-  @include strawberryGradientBackground();
+  .backgroundGradient {
+    @include strawberryGradientBackground();
+  }
 }
 .FlavourDetailsWrapper.blackberryBlast {
-  @include blackBerryGradientBackground();
+  .contentWrapper {
+    .primaryButton {
+      background: #a991e3;
+    }
+  }
+  .backgroundGradient {
+    @include blackBerryGradientBackground();
+  }
   .backgroundEffect {
     background-image: url("../../../public/flavours/blackberryBackground.png");
   }
 }
 .FlavourDetailsWrapper.cheekyLime {
-  @include limeGradientBackground();
+  .backgroundGradient {
+    @include limeGradientBackground();
+  }
 }
 
-// @keyframes borderFlow {
-//   from {
-//     background-position: 0% 50%;
-//   }
-//   to {
-//     background-position: 300% 50%;
-//   }
-// }
 @property --angle {
   syntax: "<angle>";
   initial-value: 0deg;

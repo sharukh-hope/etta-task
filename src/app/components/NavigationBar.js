@@ -2,16 +2,20 @@ import Link from "next/link";
 
 import React from "react";
 
-const NavigationBar = ({}) => {
+const NavigationBar = ({ callbackOnFlavoursClick }) => {
   return (
     <div className="NavigationBarWrapper">
       <Link href={"#"} className="navLink mainLogo">
         Juicy
       </Link>
       <nav className="navLinks">
-        <Link href={"/flavour"} className="navLink">
+        <div
+          href={"/flavour"}
+          className="navLink"
+          onClick={callbackOnFlavoursClick}
+        >
           Flavours
-        </Link>
+        </div>
         <Link href={"#"} className="navLink">
           Drinks
         </Link>

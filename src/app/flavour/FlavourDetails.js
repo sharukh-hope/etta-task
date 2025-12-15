@@ -1,10 +1,11 @@
 "use client";
-import { Bangers, Mina } from "next/font/google";
+import { Bangers, Mina, Outfit } from "next/font/google";
 import NavigationBar from "@/app/components/NavigationBar";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { flavours } from "../constants/flavours.js";
 import { useParams } from "next/navigation.js";
+import { AnimatePresence, motion } from "framer-motion";
 
 const bangers = Bangers({
   variable: "--font-bangers",
@@ -14,13 +15,24 @@ const minaFont = Mina({
   variable: "--font-mina",
   weight: "700",
 });
+const outfitFont = Outfit({
+  variable: "--font-outfit",
+  weight: "600",
+});
 
-const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
+const FlavourDetails = ({
+  activeFlavourId,
+  callTriggerReset,
+  callbackOnPrevious,
+  callbackOnNext,
+}) => {
   /* state variables */
+  const [activeQuantity, setActiveQuantity] = useState(500);
 
   /* other hooks */
 
   /* static variables */
+  const quantities = [500, 125, 100];
 
   /* useRefs */
 
@@ -29,15 +41,30 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
   /* api calls */
 
   /* helper functions */
-  const handlePrevious = () => {};
-  const handleNext = () => {};
 
   /* render functions */
-
-  return (
-    <div className={`FlavourDetailsWrapper ${activeFlavourId}`}>
-      <div className="backgroundGradient" />
-      <NavigationBar callbackOnFlavoursClick={callTriggerReset} />
+  const renderQuantity = () => {
+    return (
+      <div className={`quantityItemsWrapper ${outfitFont.variable}`}>
+        {quantities.map((item) => {
+          return (
+            <div
+              key={item}
+              className={`quantityItem ${
+                activeQuantity === item ? "active" : ""
+              }`}
+              onClick={() => setActiveQuantity(item)}
+            >
+              {item}
+              <span>ml</span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+  const renderCentralImageCarousel = () => {
+    return (
       <div className="flavourImageWrapper">
         <Image
           src={flavours[activeFlavourId].imageSource}
@@ -48,19 +75,55 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
         <div className="backgroundEffect" />
 
         <div className="arrowsWrapper">
-          <div className="iconLeftArrow iconArrow" onClick={handlePrevious} />
-          <div className="iconRightArrow iconArrow" onClick={handleNext} />
+          <div
+            className="iconLeftArrow iconArrow"
+            onClick={callbackOnPrevious}
+          />
+          <div className="iconRightArrow iconArrow" onClick={callbackOnNext} />
         </div>
       </div>
+    );
+  };
+  const renderContent = () => {
+    return (
       <div className="contentWrapper">
-        <h1 className={`headerText ${minaFont.variable}`}>
-          {flavours[activeFlavourId].headerText}
-        </h1>
+        <AnimatePresence mode="popLayout">
+          <motion.h1
+            className={`headerText ${minaFont.variable}`}
+            key={activeFlavourId}
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.5,
+              // ease: "linear",
+            }}
+          >
+            {flavours[activeFlavourId].headerText}
+          </motion.h1>
+        </AnimatePresence>
         <p className="descriptionText">
           {flavours[activeFlavourId].detailedDescription}
         </p>
         <button className="primaryButton">View</button>
       </div>
+    );
+  };
+
+  return (
+    <div className={`FlavourDetailsWrapper ${activeFlavourId}`}>
+      {/* <div className="backgroundGradient" /> */}
+      <motion.div
+        key={activeFlavourId}
+        className="backgroundGradient"
+        layoutId={`bg-${activeFlavourId}`}
+        transition={{
+          ease: "easeInOut",
+        }}
+      />
+      <NavigationBar callbackOnFlavoursClick={callTriggerReset} />
+      {renderCentralImageCarousel()}
+      {renderContent()}
+      {renderQuantity()}
     </div>
   );
 };
