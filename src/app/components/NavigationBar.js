@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import React from "react";
 
-const NavigationBar = ({ callbackOnFlavoursClick }) => {
+const NavigationBar = ({ callbackOnFlavoursClick, disableClick = true }) => {
   return (
     <div className="NavigationBarWrapper">
       <Link href={"#"} className="navLink mainLogo">
@@ -12,7 +12,7 @@ const NavigationBar = ({ callbackOnFlavoursClick }) => {
         <div
           href={"/flavour"}
           className="navLink"
-          onClick={callbackOnFlavoursClick}
+          onClick={() => !disableClick && callbackOnFlavoursClick()}
         >
           Flavours
         </div>

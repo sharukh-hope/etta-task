@@ -28,6 +28,7 @@ const FlavourDetails = ({
 }) => {
   /* state variables */
   const [activeQuantity, setActiveQuantity] = useState(500);
+  const [navButtonsActive, setNavButtonsActive] = useState(false);
 
   /* other hooks */
 
@@ -49,7 +50,7 @@ const FlavourDetails = ({
         {quantities.map((item) => {
           return (
             <div
-              key={item}
+              key={`${activeFlavourId}-${item}`}
               className={`quantityItem ${
                 activeQuantity === item ? "active" : ""
               }`}
@@ -90,7 +91,7 @@ const FlavourDetails = ({
         <AnimatePresence mode="popLayout">
           <motion.h1
             className={`headerText ${minaFont.variable}`}
-            key={activeFlavourId}
+            key={`h1-${activeFlavourId}`}
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{
@@ -113,17 +114,33 @@ const FlavourDetails = ({
     <div className={`FlavourDetailsWrapper ${activeFlavourId}`}>
       {/* <div className="backgroundGradient" /> */}
       <motion.div
-        key={activeFlavourId}
+        key={`details-${activeFlavourId}`}
         className="backgroundGradient"
         layoutId={`bg-${activeFlavourId}`}
         transition={{
-          ease: "easeInOut",
+          layout: { duration: 1, ease: "easeInOut", delay: 0.25 },
         }}
+        onLayoutAnimationComplete={() => setNavButtonsActive(true)}
       />
-      <NavigationBar callbackOnFlavoursClick={callTriggerReset} />
-      {renderCentralImageCarousel()}
-      {renderContent()}
-      {renderQuantity()}
+      <motion.div
+        initial={{ opacity: 0 }}
+        className="allContentWrapper"
+        animate={{
+          opacity: 1,
+          transition: {
+            duration: 0.5,
+            delay: 0.25,
+          },
+        }}
+      >
+        <NavigationBar
+          callbackOnFlavoursClick={callTriggerReset}
+          disableClick={!navButtonsActive}
+        />
+        {renderCentralImageCarousel()}
+        {renderContent()}
+        {renderQuantity()}
+      </motion.div>
     </div>
   );
 };

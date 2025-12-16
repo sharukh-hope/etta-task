@@ -5,7 +5,7 @@ import FlavourCard from "./FlavourCard";
 
 import { flavours } from "../constants/flavours.js";
 import FlavourDetails from "./FlavourDetails";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Flavour = ({}) => {
   /* state variables */
@@ -28,6 +28,7 @@ const Flavour = ({}) => {
   /* render functions */
   const renderFlavourDetails = () => {
     if (!showFlavourDetails) return null;
+    if (!activeFlavour) return null;
     return (
       <FlavourDetails
         activeFlavourId={activeFlavour}
@@ -58,7 +59,9 @@ const Flavour = ({}) => {
               active={activeFlavour === flavour.id}
               imageSource={flavour.imageSource}
               callbackToShowFlavourDetails={() => setShowFlavourDetails(true)}
-              callbackToHideFlavourMenu={() => setShowFlavourMenu(false)}
+              onExitComplete={() => {
+                setShowFlavourMenu(false);
+              }}
             />
           );
         })}
@@ -68,11 +71,10 @@ const Flavour = ({}) => {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {renderFlavourDetails()}
-
-        {renderFlavourMenu()}
-      </AnimatePresence>
+      {/* <AnimatePresence mode="wait"> */}
+      {renderFlavourDetails()}
+      {renderFlavourMenu()}
+      {/* </AnimatePresence> */}
     </>
   );
 };

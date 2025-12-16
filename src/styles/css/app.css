@@ -25,6 +25,7 @@
 .FlavourWrapper {
   display: flex;
   height: 100vh;
+  overflow: scroll;
 }
 
 .FlavourDetailsWrapper {
@@ -33,6 +34,7 @@
   position: absolute;
   left: 0;
   top: 0;
+  background: transparent;
 }
 .FlavourDetailsWrapper .backgroundGradient {
   height: 100vh;
@@ -42,7 +44,16 @@
   top: 0;
   z-index: 10;
 }
-.FlavourDetailsWrapper .flavourImageWrapper {
+.FlavourDetailsWrapper .allContentWrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  z-index: 12;
+}
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -51,7 +62,7 @@
   flex-direction: column;
   z-index: 11;
 }
-.FlavourDetailsWrapper .flavourImageWrapper .backgroundText {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .backgroundText {
   font-family: "Bangers", sans-serif;
   font-size: 32vw;
   width: fit-content;
@@ -62,7 +73,7 @@
   right: 50%;
   transform: translate(-50%, -50%);
 }
-.FlavourDetailsWrapper .flavourImageWrapper .backgroundEffect {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .backgroundEffect {
   transition: all 0.5s;
   background-repeat: no-repeat;
   position: absolute;
@@ -74,12 +85,12 @@
   bottom: 20%;
   z-index: 1;
 }
-.FlavourDetailsWrapper .flavourImageWrapper .flavourImage {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .flavourImage {
   margin-bottom: 16px;
   height: auto;
   z-index: 2;
 }
-.FlavourDetailsWrapper .flavourImageWrapper .arrowsWrapper {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper {
   width: 100%;
   display: flex;
   align-items: center;
@@ -87,27 +98,27 @@
   gap: 16px;
   z-index: 14;
 }
-.FlavourDetailsWrapper .flavourImageWrapper .arrowsWrapper .iconArrow {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper .iconArrow {
   border: 2px solid #fafafa;
   border-radius: 50%;
   height: 54px;
   width: 54px;
   cursor: pointer;
 }
-.FlavourDetailsWrapper .flavourImageWrapper .arrowsWrapper .iconLeftArrow,
-.FlavourDetailsWrapper .flavourImageWrapper .arrowsWrapper .iconRightArrow {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper .iconLeftArrow,
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper .iconRightArrow {
   background-size: 14px;
   background-position: center;
   background-repeat: no-repeat;
 }
-.FlavourDetailsWrapper .flavourImageWrapper .arrowsWrapper .iconLeftArrow {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper .iconLeftArrow {
   background-image: url("../../../public/icons/arrow.svg");
 }
-.FlavourDetailsWrapper .flavourImageWrapper .arrowsWrapper .iconRightArrow {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper .iconRightArrow {
   background-image: url("../../../public/icons/arrow.svg");
   transform: rotate(180deg);
 }
-.FlavourDetailsWrapper .contentWrapper {
+.FlavourDetailsWrapper .allContentWrapper .contentWrapper {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -116,7 +127,7 @@
   padding: 0px 100px;
   width: fit-content;
 }
-.FlavourDetailsWrapper .contentWrapper .headerText {
+.FlavourDetailsWrapper .allContentWrapper .contentWrapper .headerText {
   font-family: var(--font-mina);
   font-weight: 700;
   font-size: 46px;
@@ -125,7 +136,7 @@
   color: white;
   z-index: 12;
 }
-.FlavourDetailsWrapper .contentWrapper .descriptionText {
+.FlavourDetailsWrapper .allContentWrapper .contentWrapper .descriptionText {
   color: rgba(255, 255, 255, 0.8392156863);
   max-width: 450px;
   font-weight: 500;
@@ -137,7 +148,7 @@
   margin-bottom: 20px;
   z-index: 12;
 }
-.FlavourDetailsWrapper .contentWrapper .primaryButton {
+.FlavourDetailsWrapper .allContentWrapper .contentWrapper .primaryButton {
   position: relative;
   padding: 10px 48px;
   min-width: 166px;
@@ -152,7 +163,7 @@
   overflow: hidden;
   z-index: 12;
 }
-.FlavourDetailsWrapper .contentWrapper .primaryButton::before {
+.FlavourDetailsWrapper .allContentWrapper .contentWrapper .primaryButton::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -165,7 +176,7 @@
   -webkit-mask-composite: xor;
   pointer-events: none;
 }
-.FlavourDetailsWrapper .quantityItemsWrapper {
+.FlavourDetailsWrapper .allContentWrapper .quantityItemsWrapper {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -177,7 +188,7 @@
   gap: 16px;
   z-index: 10;
 }
-.FlavourDetailsWrapper .quantityItemsWrapper .quantityItem {
+.FlavourDetailsWrapper .allContentWrapper .quantityItemsWrapper .quantityItem {
   transition: all 0.5s;
   width: 70px;
   height: 70px;
@@ -191,7 +202,7 @@
   justify-content: center;
   align-items: center;
 }
-.FlavourDetailsWrapper .quantityItemsWrapper .quantityItem.active {
+.FlavourDetailsWrapper .allContentWrapper .quantityItemsWrapper .quantityItem.active {
   background-color: rgba(255, 255, 255, 0.947);
   color: black;
 }
@@ -240,22 +251,14 @@
     --angle: 360deg;
   }
 }
-@keyframes appearSlow {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 .FlavourCardWrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-width: 360px;
-  max-width: 260px;
   position: relative;
+  overflow: hidden;
 }
 .FlavourCardWrapper .flavourBackground {
   height: 100%;
@@ -265,17 +268,17 @@
   inset: 0;
   background: #f1f4f9;
 }
-.FlavourCardWrapper:has(.flavourImageWrapper.active.cheekyLime) .flavourBackground {
+.FlavourCardWrapper:has(.flavourImageWrapper.cheekyLime) .flavourBackground {
   background-color: rgba(207, 207, 141, 0.3019607843);
 }
-.FlavourCardWrapper:has(.flavourImageWrapper.active.orangeCrush) .flavourBackground {
+.FlavourCardWrapper:has(.flavourImageWrapper.orangeCrush) .flavourBackground {
   background-color: rgba(222, 190, 110, 0.2901960784);
 }
-.FlavourCardWrapper:has(.flavourImageWrapper.active.strawberryYum) .flavourBackground {
+.FlavourCardWrapper:has(.flavourImageWrapper.strawberryYum) .flavourBackground {
   background-color: rgba(220, 141, 118, 0.2901960784);
 }
-.FlavourCardWrapper:has(.flavourImageWrapper.active.blackberryBlast) .flavourBackground {
-  background-color: #dad3ea;
+.FlavourCardWrapper:has(.flavourImageWrapper.blackberryBlast) .flavourBackground {
+  background-color: rgba(148, 127, 190, 0.3019607843);
 }
 .FlavourCardWrapper .contentWrapper {
   padding: 0px 55px;
@@ -305,60 +308,25 @@
 .FlavourCardWrapper .contentWrapper .primaryButton {
   color: #242f4b;
 }
-.FlavourCardWrapper .contentWrapper.active {
-  transform: translateY(32px);
-}
-.FlavourCardWrapper .flavourImageWrapper .actualImageWrapper {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: -2;
+.FlavourCardWrapper .flavourImageWrapper .graphicsWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  min-height: 615px;
 }
-.FlavourCardWrapper .flavourImageWrapper .actualImageWrapper .flavourImage {
-  opacity: 0;
-  max-width: 240px;
-  height: auto;
-  z-index: -1;
-}
-.FlavourCardWrapper .flavourImageWrapper .actualImageWrapper .backgroundCircle {
-  opacity: 0;
-  transform: scale(0.4);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-  height: 0px;
-  width: 0px;
-  border-radius: 100%;
+.FlavourCardWrapper .flavourImageWrapper .graphicsWrapper .imageWrapper {
+  height: 100%;
+  width: 100%;
   position: absolute;
-  top: 20%;
-  left: 0;
-  z-index: -2;
+  display: flex;
+  justify-content: center;
 }
-.FlavourCardWrapper .flavourImageWrapper .pseudoHolder {
-  height: 0px;
-  transition: height 0.5s ease-out;
-  width: 100%;
-}
-.FlavourCardWrapper .flavourImageWrapper.active {
-  opacity: 1;
-}
-.FlavourCardWrapper .flavourImageWrapper.active .pseudoHolder {
-  height: 480px;
-}
-.FlavourCardWrapper .flavourImageWrapper.active .actualImageWrapper .flavourImage {
-  opacity: 1;
-  max-width: 240px;
-  animation: moveUpExpand 0.5s ease-out;
-  z-index: -1;
-}
-.FlavourCardWrapper .flavourImageWrapper.active .actualImageWrapper .backgroundCircle {
-  opacity: 1;
-  transform: scale(1);
+.FlavourCardWrapper .flavourImageWrapper .graphicsWrapper .backgroundCircle {
+  aspect-ratio: 1;
   min-width: 100%;
-  width: 100%;
-  height: 360px;
+  border-radius: 100%;
+  z-index: -2;
 }
 .FlavourCardWrapper .flavourImageWrapper.cheekyLime .backgroundCircle {
   background-color: #a1cd57;
@@ -373,56 +341,6 @@
   background-color: #60449b;
 }
 
-@keyframes expand {
-  0% {
-    transform: scale(0.5) translateY(10%);
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0px);
-  }
-}
-@keyframes fade {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes expandEaseInOut {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.8);
-  }
-  100% {
-    transform: scale(10);
-  }
-}
-@keyframes moveUpExpand {
-  0% {
-    transform: scale(0.8) translateY(5%);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1) translateY(0px);
-    opacity: 1;
-  }
-}
-@keyframes moveLeft {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(25%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
 .NavigationBarWrapper {
   display: flex;
   align-items: center;

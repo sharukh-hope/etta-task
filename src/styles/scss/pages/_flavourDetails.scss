@@ -4,7 +4,8 @@
   position: absolute;
   left: 0;
   top: 0;
-  //   animation: appearSlow 0.8s;
+  background: transparent;
+
   .backgroundGradient {
     height: 100vh;
     width: 100vw;
@@ -13,174 +14,183 @@
     top: 0;
     z-index: +10;
   }
-  .flavourImageWrapper {
+  .allContentWrapper {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    z-index: +11;
-
-    .backgroundText {
-      font-family: "Bangers", sans-serif;
-      font-size: 32vw;
-      width: fit-content;
-      color: #f5f5f5;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: +12;
+    .flavourImageWrapper {
       position: absolute;
-      top: 40%;
+      top: 50%;
       left: 50%;
-      right: 50%;
       transform: translate(-50%, -50%);
-    }
-    .backgroundEffect {
-      transition: all 0.5s;
-
-      background-repeat: no-repeat;
-      position: absolute;
-      max-width: 680px;
-      width: 100vw;
-      height: 100vh;
-      max-height: 540px;
-      left: -80%;
-      bottom: 20%;
-      z-index: 1;
-    }
-    .flavourImage {
-      margin-bottom: 16px;
-      height: auto;
-      z-index: 2;
-    }
-    .arrowsWrapper {
-      width: 100%;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      z-index: +14;
-      .iconArrow {
-        border: 2px solid #fafafa;
-        border-radius: 50%;
-        height: 54px;
-        width: 54px;
-        cursor: pointer;
+      flex-direction: column;
+      z-index: +11;
+
+      .backgroundText {
+        font-family: "Bangers", sans-serif;
+        font-size: 32vw;
+        width: fit-content;
+        color: #f5f5f5;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        right: 50%;
+        transform: translate(-50%, -50%);
       }
-      .iconLeftArrow,
-      .iconRightArrow {
-        background-size: 14px;
-        background-position: center;
+      .backgroundEffect {
+        transition: all 0.5s;
+
         background-repeat: no-repeat;
+        position: absolute;
+        max-width: 680px;
+        width: 100vw;
+        height: 100vh;
+        max-height: 540px;
+        left: -80%;
+        bottom: 20%;
+        z-index: 1;
       }
-      .iconLeftArrow {
-        background-image: url("../../../public/icons/arrow.svg");
+      .flavourImage {
+        margin-bottom: 16px;
+        height: auto;
+        z-index: 2;
       }
-      .iconRightArrow {
-        background-image: url("../../../public/icons/arrow.svg");
-        transform: rotate(180deg);
+      .arrowsWrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        z-index: +14;
+        .iconArrow {
+          border: 2px solid #fafafa;
+          border-radius: 50%;
+          height: 54px;
+          width: 54px;
+          cursor: pointer;
+        }
+        .iconLeftArrow,
+        .iconRightArrow {
+          background-size: 14px;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        .iconLeftArrow {
+          background-image: url("../../../public/icons/arrow.svg");
+        }
+        .iconRightArrow {
+          background-image: url("../../../public/icons/arrow.svg");
+          transform: rotate(180deg);
+        }
       }
     }
-  }
 
-  .contentWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 16px;
-    height: 80%;
-    padding: 0px 100px;
-    width: fit-content;
-
-    .headerText {
-      font-family: var(--font-mina);
-      font-weight: 700;
-      font-size: 46px;
-      line-height: 100%;
-      margin: unset;
-      color: white;
-      z-index: +12;
-    }
-    .descriptionText {
-      color: #ffffffd6;
-      max-width: 450px;
-      font-weight: 500;
-      font-style: Medium;
-      font-size: 18px;
-      line-height: 26px;
-      letter-spacing: 0%;
-      margin: unset;
-      margin-bottom: 20px;
-      z-index: +12;
-    }
-    .primaryButton {
-      position: relative;
-      padding: 10px 48px;
-      min-width: 166px;
-      min-height: 44px;
-      border-radius: 999px;
-      border: none;
-      background: transparent;
-      color: white;
-      font-size: 16px;
-      font-weight: 500;
-
-      box-shadow: 0px -7px 9px rgba(0, 0, 0, 0.25),
-        inset 6px 6px 7px rgba(255, 255, 255, 0.38);
-
-      overflow: hidden;
-      z-index: +12;
-    }
-    .primaryButton::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      padding: 2px;
-      border-radius: inherit;
-
-      background: conic-gradient(
-        from var(--angle),
-        rgba(255, 255, 255, 0) 0deg,
-        rgb(255, 255, 255) 120deg,
-        rgba(255, 255, 255, 0) 240deg,
-        rgba(255, 255, 255, 0) 360deg
-      );
-
-      animation: borderLoop 3s linear infinite;
-
-      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      mask-composite: exclude;
-      -webkit-mask-composite: xor;
-
-      pointer-events: none;
-    }
-  }
-  .quantityItemsWrapper {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    z-index: +10;
-    .quantityItem {
-      transition: all 0.5s;
-      width: 70px;
-      height: 70px;
-      border-radius: 100%;
-      background-color: rgba(54, 54, 54, 0.336);
-      color: white;
+    .contentWrapper {
       display: flex;
-      font-family: var(--font-outfit);
-      cursor: pointer;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 16px;
+      height: 80%;
+      padding: 0px 100px;
+      width: fit-content;
+
+      .headerText {
+        font-family: var(--font-mina);
+        font-weight: 700;
+        font-size: 46px;
+        line-height: 100%;
+        margin: unset;
+        color: white;
+        z-index: +12;
+      }
+      .descriptionText {
+        color: #ffffffd6;
+        max-width: 450px;
+        font-weight: 500;
+        font-style: Medium;
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: 0%;
+        margin: unset;
+        margin-bottom: 20px;
+        z-index: +12;
+      }
+      .primaryButton {
+        position: relative;
+        padding: 10px 48px;
+        min-width: 166px;
+        min-height: 44px;
+        border-radius: 999px;
+        border: none;
+        background: transparent;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+
+        box-shadow: 0px -7px 9px rgba(0, 0, 0, 0.25),
+          inset 6px 6px 7px rgba(255, 255, 255, 0.38);
+
+        overflow: hidden;
+        z-index: +12;
+      }
+      .primaryButton::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 2px;
+        border-radius: inherit;
+
+        background: conic-gradient(
+          from var(--angle),
+          rgba(255, 255, 255, 0) 0deg,
+          rgb(255, 255, 255) 120deg,
+          rgba(255, 255, 255, 0) 240deg,
+          rgba(255, 255, 255, 0) 360deg
+        );
+
+        animation: borderLoop 3s linear infinite;
+
+        mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+
+        pointer-events: none;
+      }
+    }
+    .quantityItemsWrapper {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 40px;
+      display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    }
-    .quantityItem.active {
-      background-color: rgba(255, 255, 255, 0.947);
-      color: black;
+      gap: 16px;
+      z-index: +10;
+      .quantityItem {
+        transition: all 0.5s;
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        background-color: rgba(54, 54, 54, 0.336);
+        color: white;
+        display: flex;
+        font-family: var(--font-outfit);
+        cursor: pointer;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .quantityItem.active {
+        background-color: rgba(255, 255, 255, 0.947);
+        color: black;
+      }
     }
   }
 }
@@ -238,14 +248,5 @@
   }
   to {
     --angle: 360deg;
-  }
-}
-
-@keyframes appearSlow {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }

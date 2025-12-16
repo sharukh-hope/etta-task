@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const FlavourCard = ({
@@ -12,44 +12,120 @@ const FlavourCard = ({
   sNo,
   imageSource,
   callbackToShowFlavourDetails,
-  callbackToHideFlavourMenu,
+  onExitComplete,
 }) => {
   /* state variables */
-  const [isLeaving, setIsLeaving] = useState(false);
+  const [isUnmounting, setIsUnmounting] = useState(false);
 
-  /* other hooks */
+  /* variables */
+  const cardExitVariants = {
+    exit: () => {
+      if (!cardRef.current) return {};
+      const rect = cardRef.current.getBoundingClientRect();
+      const cardCenterX = rect.left + rect.width / 2;
+      const viewportCenterX = window.innerWidth / 2;
 
-  /* static variables */
+      const exitToRight = cardCenterX < viewportCenterX;
+
+      return {
+        x: exitToRight ? [0, -80, -400] : [0, 80, 400],
+        width: "100vw",
+        transition: {
+          duration: 1,
+          ease: "easeInOut",
+        },
+      };
+    },
+  };
 
   /* useRefs */
-
-  /* useEffects */
-
-  /* api calls */
+  const cardRef = useRef();
 
   /* helper functions */
   const handleFlavourDetailsClick = () => {
+    setIsUnmounting(true);
     if (active) {
-      setIsLeaving(true);
-      // callbackToHideFlavourMenu();
-      callbackToHideFlavourMenu();
-
-      setTimeout(() => {
-        callbackToShowFlavourDetails();
-      }, [500]);
-      setTimeout(() => {
-        // callbackToShowFlavourDetails();
-      }, [1000]);
+      callbackToShowFlavourDetails();
     }
   };
   /* render functions */
   const flavourImage = () => {
+    if (!active) return null;
+    const imageVariants = {
+      exit: () => {
+        if (!cardRef.current) return {};
+
+        const rect = cardRef.current.getBoundingClientRect();
+        const cardCenterX = rect.left + rect.width / 2;
+        const viewportCenterX = window.innerWidth / 2;
+
+        const exitToRight = cardCenterX < viewportCenterX;
+
+        return {
+          x: exitToRight ? 400 : -400,
+          transition: {
+            duration: 0.5,
+            delay: 0.5,
+            ease: "easeInOut",
+          },
+        };
+      },
+      animate: {
+        y: 0,
+        opacity: 1,
+        transition: {
+          duration: 0.5,
+          ease: "easeOut",
+        },
+      },
+    };
+
+    const renderCircle = () => {
+      const circleVariants = {
+        animate: {
+          scale: 1,
+          transition: {
+            ease: "easeOut",
+          },
+        },
+        exit: {
+          scale: [1, 0.5, 4],
+          transition: {
+            duration: 1,
+            ease: "easeInOut",
+          },
+        },
+      };
+      return (
+        <motion.div
+          className={"backgroundCircle"}
+          initial={{
+            scale: 0.5,
+          }}
+          animate={"animate"}
+          exit={"exit"}
+          variants={circleVariants}
+          key={`backgroundCircle-${id}`}
+        />
+      );
+    };
+
     return (
-      <div className={`flavourImageWrapper ${id} ${active ? "active" : ""}`}>
-        <div className={`actualImageWrapper`}>
+      <motion.div
+        className={`flavourImageWrapper ${id}`}
+        initial={{ y: 80, opacity: 0 }}
+        animate={"animate"}
+        variants={imageVariants}
+        exit={"exit"}
+        layout
+        key={`flavourImageWrapper-${id}`}
+      >
+        <div className={`graphicsWrapper`}>
           <motion.div
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
+            className="imageWrapper"
+            key={`imageWrapper-${id}`}
           >
             <Image
               src={imageSource}
@@ -57,67 +133,44 @@ const FlavourCard = ({
               className="flavourImage"
             />
           </motion.div>
-          <motion.div
-            className={"backgroundCircle"}
-            // animate={isLeaving ? { scale: [1, 0.8, 8] } : { x: 0 }}
-            exit={{ scale: [1, 0.8, 8] }}
-            transition={{
-              duration: 1,
-              ease: "easeInOut",
-              times: [0, 0.5, 1],
-            }}
-          />
+          {renderCircle()}
         </div>
-        <div className={`pseudoHolder`} />
-      </div>
+      </motion.div>
     );
   };
 
   return (
-    <motion.div
-      className={`FlavourCardWrapper ${isLeaving ? "leaving" : ""}`}
-      initial={false}
-      // animate={isLeaving ? { x: [0, 40, -400] } : { x: 0 }}
-      exit={isLeaving ? { x: [0, 40, -400] } : { x: 0 }}
-      // exit={{ x: [0, 40, -window.innerWidth / 3] }}
-      transition={{
-        duration: 1,
-        ease: "easeInOut",
-        times: [0, 0.5, 1],
-      }}
-      onClick={handleFlavourDetailsClick}
-    >
-      <motion.div
-        className="flavourBackground"
-        layoutId={`bg-${id}`}
-        initial={false}
-        // animate={isLeaving ? { scaleX: [1, 5] } : { x: 0 }}
-        exit={{ scaleX: [1, 5] }}
-        transition={{
-          duration: 1,
-          delay: 0.5,
-          // ease: "easeInOut",
-          // times: [0, 0.5, 1],
-          layout: {
-            duration: 1,
-            visualDuration: 1,
-            ease: "easeInOut",
-          },
-        }}
-      />
-      {flavourImage()}
-      <motion.div
-        className={`contentWrapper ${active ? "active" : ""}`}
-        onClick={callbackOnClick}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-      >
-        <div className={`number ${id}Text`}>{sNo}</div>
-        <h2 className="headerWrapper">{headerText}</h2>
-        <p className="description">{description}</p>
-        <button className="primaryButton">View</button>
-      </motion.div>
-    </motion.div>
+    <AnimatePresence mode="wait" onExitComplete={onExitComplete}>
+      {!isUnmounting && (
+        <motion.div
+          className={`FlavourCardWrapper`}
+          variants={cardExitVariants}
+          exit={"exit"}
+          onClick={() => active && handleFlavourDetailsClick()}
+          key={`flavourCardWrapper-${id}`}
+          ref={cardRef}
+        >
+          <motion.div
+            className="flavourBackground"
+            layoutId={`bg-${id}`}
+            initial={false}
+            key={`flavourBackground-${id}`}
+          />
+          {flavourImage()}
+          <motion.div
+            className={`contentWrapper`}
+            onClick={callbackOnClick}
+            key={`contentWrapper-${id}`}
+            layout
+          >
+            <div className={`number ${id}Text`}>{sNo}</div>
+            <h2 className="headerWrapper">{headerText}</h2>
+            <p className="description">{description}</p>
+            <button className="primaryButton">View</button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
