@@ -28,8 +28,9 @@ const FlavourCard = ({
       const exitToRight = cardCenterX < viewportCenterX;
 
       return {
-        x: exitToRight ? [0, -80, -400] : [0, 80, 400],
-        width: "100vw",
+        x: exitToRight
+          ? [0, -100, window.innerWidth / 2]
+          : [0, 100, -window.innerWidth / 2],
         transition: {
           duration: 1,
           ease: "easeInOut",
@@ -89,7 +90,7 @@ const FlavourCard = ({
           },
         },
         exit: {
-          scale: [1, 0.5, 4],
+          scale: [1, 0.5, 10],
           transition: {
             duration: 1,
             ease: "easeInOut",
@@ -154,6 +155,8 @@ const FlavourCard = ({
             className="flavourBackground"
             layoutId={`bg-${id}`}
             initial={false}
+            variants={cardExitVariants}
+            exit={"exit"}
             key={`flavourBackground-${id}`}
           />
           {flavourImage()}

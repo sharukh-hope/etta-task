@@ -1,7 +1,12 @@
 "use client";
 import { Bangers, Mina, Outfit } from "next/font/google";
 import NavigationBar from "@/app/components/NavigationBar";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import Image from "next/image";
 import { flavours } from "../constants/flavours.js";
 import {
@@ -124,7 +129,8 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
     animate: {
       opacity: 1,
       transition: {
-        duration: 1,
+        duration: 2,
+        delay: 0.5,
       },
     },
     exit: {
@@ -165,8 +171,9 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
   /* useEffects */
   useEffect(() => {
     setCurrentActiveId(activeFlavourId);
-    setExitingId(activeFlavourId);
+    // setExitingId(activeFlavourId);
   }, [activeFlavourId]);
+
   useEffect(() => {
     if (animateDirection) {
       if (animateDirection === "left") moveLeft();
@@ -184,9 +191,7 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
   };
   const handlePrevious = () => {
     if (animateDirection === "left") moveLeft();
-    else {
-      setAnimateDirection("left");
-    }
+    else setAnimateDirection("left");
   };
 
   /* render functions */
@@ -259,9 +264,28 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
       </div>
     );
   };
-  if (!currentActiveId) return null;
-
   const animateRight = animateDirection === "right";
+
+  if (!currentActiveId)
+    return (
+      <div className={`FlavourDetailsWrapper ${activeFlavourId}`}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`exit-${activeFlavourId}`}
+            className={`backgroundGradient ${activeFlavourId} z`}
+            layoutId={`bg-${activeFlavourId}`}
+            transition={{
+              layout: { duration: 1, ease: "easeInOut", delay: 0.5 },
+            }}
+            onLayoutAnimationComplete={() => {
+              setNavButtonsActive(true);
+              setExitingId(activeFlavourId);
+            }}
+          />
+        </AnimatePresence>
+      </div>
+    );
+
   return (
     <div className={`FlavourDetailsWrapper ${currentActiveId}`}>
       {/* <div className="backgroundGradient" /> */}
@@ -269,15 +293,10 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
         <motion.div
           key={`exit-${currentActiveId}`}
           className={`backgroundGradient ${currentActiveId} z`}
-          layoutId={`bg-${currentActiveId}`}
           initial={!animateRight ? "entryInit" : false}
           variants={bgGradientVariants}
           animate={!animateRight ? "animateIn" : "animate"}
           exit={!animateRight ? false : "exit"}
-          transition={{
-            layout: { duration: 1, ease: "easeIn" },
-          }}
-          onLayoutAnimationComplete={() => setNavButtonsActive(true)}
         />
       </AnimatePresence>
 
