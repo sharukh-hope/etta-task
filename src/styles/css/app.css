@@ -274,7 +274,6 @@
   flex-direction: column;
   justify-content: center;
   min-width: 360px;
-  max-width: 380px;
   position: relative;
   overflow: hidden;
 }
@@ -342,8 +341,9 @@
 }
 .FlavourCardWrapper .flavourImageWrapper .graphicsWrapper .backgroundCircle {
   aspect-ratio: 1;
-  min-width: 100%;
   border-radius: 100%;
+  min-width: 360px;
+  max-width: 380px;
   z-index: -2;
 }
 .FlavourCardWrapper .flavourImageWrapper.cheekyLime .backgroundCircle {
