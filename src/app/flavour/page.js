@@ -5,7 +5,6 @@ import FlavourCard from "./FlavourCard";
 
 import { flavours } from "../constants/flavours.js";
 import FlavourDetails from "./FlavourDetails";
-import { AnimatePresence, motion } from "framer-motion";
 
 const Flavour = ({}) => {
   /* state variables */
@@ -37,8 +36,6 @@ const Flavour = ({}) => {
           setShowFlavourDetails(false);
           setActiveFlavour(null);
         }}
-        callbackOnNext={() => setActiveFlavour("orangeCrush")}
-        callbackOnPrevious={() => setActiveFlavour("blackberryBlast")}
       />
     );
   };

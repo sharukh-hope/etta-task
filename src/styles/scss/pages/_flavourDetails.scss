@@ -5,7 +5,44 @@
   left: 0;
   top: 0;
   background: transparent;
+  .blackberryBlast.backgroundGradient.z {
+    z-index: +11;
+    @include blackBerryGradientBackground();
+  }
+  .cheekyLime.backgroundGradient.z {
+    // z-index: +9;
+    z-index: +11;
 
+    @include limeGradientBackground();
+  }
+  .strawberryYum.backgroundGradient.z {
+    @include strawberryGradientBackground();
+    z-index: +11;
+    // z-index: +9;
+  }
+  .orangeCrush.backgroundGradient.z {
+    z-index: +11;
+    // z-index: +9;
+
+    @include orangeGradient();
+  }
+  .blackberryBlast.backgroundGradient.x {
+    z-index: +10;
+    @include blackBerryGradientBackground();
+  }
+  .cheekyLime.backgroundGradient.x {
+    z-index: +10;
+
+    @include limeGradientBackground();
+  }
+  .strawberryYum.backgroundGradient.x {
+    @include strawberryGradientBackground();
+    z-index: +10;
+  }
+  .orangeCrush.backgroundGradient.x {
+    z-index: +10;
+    @include orangeGradient();
+  }
   .backgroundGradient {
     height: 100vh;
     width: 100vw;
@@ -43,8 +80,6 @@
         transform: translate(-50%, -50%);
       }
       .backgroundEffect {
-        transition: all 0.5s;
-
         background-repeat: no-repeat;
         position: absolute;
         max-width: 680px;
@@ -204,35 +239,20 @@
       color: black;
     }
   }
-  .backgroundGradient {
-    @include orangeGradient();
-  }
   .backgroundEffect {
     background-image: url("../../../public/flavours/orangeBackground.png");
     background-repeat: no-repeat;
   }
 }
-.FlavourDetailsWrapper.strawberryYum {
-  .backgroundGradient {
-    @include strawberryGradientBackground();
-  }
-}
+
 .FlavourDetailsWrapper.blackberryBlast {
   .contentWrapper {
     .primaryButton {
       background: #a991e3;
     }
   }
-  .backgroundGradient {
-    @include blackBerryGradientBackground();
-  }
   .backgroundEffect {
     background-image: url("../../../public/flavours/blackberryBackground.png");
-  }
-}
-.FlavourDetailsWrapper.cheekyLime {
-  .backgroundGradient {
-    @include limeGradientBackground();
   }
 }
 

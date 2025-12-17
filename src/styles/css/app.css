@@ -36,6 +36,38 @@
   top: 0;
   background: transparent;
 }
+.FlavourDetailsWrapper .blackberryBlast.backgroundGradient.z {
+  z-index: 11;
+  background: radial-gradient(50% 50% at 50% 50%, #aa93e3 0%, #7547e5 100%);
+}
+.FlavourDetailsWrapper .cheekyLime.backgroundGradient.z {
+  z-index: 11;
+  background: radial-gradient(circle at 70% 60%, #e0f7d1 0%, #4caf50 60%);
+}
+.FlavourDetailsWrapper .strawberryYum.backgroundGradient.z {
+  background: radial-gradient(circle at 70% 60%, #ffd1d9 0%, #ff4e71 60%);
+  z-index: 11;
+}
+.FlavourDetailsWrapper .orangeCrush.backgroundGradient.z {
+  z-index: 11;
+  background: radial-gradient(circle at 70% 60%, #ffdeba 0%, #f38b03 60%);
+}
+.FlavourDetailsWrapper .blackberryBlast.backgroundGradient.x {
+  z-index: 10;
+  background: radial-gradient(50% 50% at 50% 50%, #aa93e3 0%, #7547e5 100%);
+}
+.FlavourDetailsWrapper .cheekyLime.backgroundGradient.x {
+  z-index: 10;
+  background: radial-gradient(circle at 70% 60%, #e0f7d1 0%, #4caf50 60%);
+}
+.FlavourDetailsWrapper .strawberryYum.backgroundGradient.x {
+  background: radial-gradient(circle at 70% 60%, #ffd1d9 0%, #ff4e71 60%);
+  z-index: 10;
+}
+.FlavourDetailsWrapper .orangeCrush.backgroundGradient.x {
+  z-index: 10;
+  background: radial-gradient(circle at 70% 60%, #ffdeba 0%, #f38b03 60%);
+}
 .FlavourDetailsWrapper .backgroundGradient {
   height: 100vh;
   width: 100vw;
@@ -74,7 +106,6 @@
   transform: translate(-50%, -50%);
 }
 .FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .backgroundEffect {
-  transition: all 0.5s;
   background-repeat: no-repeat;
   position: absolute;
   max-width: 680px;
@@ -212,30 +243,16 @@
   background: #fac996;
   color: black;
 }
-.FlavourDetailsWrapper.orangeCrush .backgroundGradient {
-  background: radial-gradient(circle at 70% 60%, #ffdeba 0%, #f38b03 60%);
-}
 .FlavourDetailsWrapper.orangeCrush .backgroundEffect {
   background-image: url("../../../public/flavours/orangeBackground.png");
   background-repeat: no-repeat;
 }
 
-.FlavourDetailsWrapper.strawberryYum .backgroundGradient {
-  background: radial-gradient(circle at 70% 60%, #ffd1d9 0%, #ff4e71 60%);
-}
-
 .FlavourDetailsWrapper.blackberryBlast .contentWrapper .primaryButton {
   background: #a991e3;
 }
-.FlavourDetailsWrapper.blackberryBlast .backgroundGradient {
-  background: radial-gradient(50% 50% at 50% 50%, #aa93e3 0%, #7547e5 100%);
-}
 .FlavourDetailsWrapper.blackberryBlast .backgroundEffect {
   background-image: url("../../../public/flavours/blackberryBackground.png");
-}
-
-.FlavourDetailsWrapper.cheekyLime .backgroundGradient {
-  background: radial-gradient(circle at 70% 60%, #e0f7d1 0%, #4caf50 60%);
 }
 
 @property --angle {

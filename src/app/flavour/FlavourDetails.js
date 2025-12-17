@@ -1,11 +1,16 @@
 "use client";
 import { Bangers, Mina, Outfit } from "next/font/google";
 import NavigationBar from "@/app/components/NavigationBar";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { flavours } from "../constants/flavours.js";
-import { useParams } from "next/navigation.js";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  animate,
+  AnimatePresence,
+  delay,
+  motion,
+  useAnimationControls,
+} from "framer-motion";
 
 const bangers = Bangers({
   variable: "--font-bangers",
@@ -20,28 +25,169 @@ const outfitFont = Outfit({
   weight: "600",
 });
 
-const FlavourDetails = ({
-  activeFlavourId,
-  callTriggerReset,
-  callbackOnPrevious,
-  callbackOnNext,
-}) => {
+const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
   /* state variables */
+  const [currentActiveId, setCurrentActiveId] = useState(null);
+  const [exitingId, setExitingId] = useState(null);
+  const [animateDirection, setAnimateDirection] = useState("right");
   const [activeQuantity, setActiveQuantity] = useState(500);
   const [navButtonsActive, setNavButtonsActive] = useState(false);
 
   /* other hooks */
+  // const controls = useAnimationControls();
 
   /* static variables */
   const quantities = [500, 125, 100];
+  const bgGradientVariants = {
+    animate: { opacity: 1, transition: { duration: 1 } },
+    entryInit: {
+      x: window.innerWidth,
+      y: window.innerHeight,
+      borderTopRightRadius: "100%",
+      borderTopLeftRadius: "100%",
+      borderBottomLeftRadius: "100%",
+    },
+    animateIn: {
+      x: 0,
+      y: 0,
+      scale: 1,
+      borderTopRightRadius: 0,
+      borderTopLeftRadius: 0,
+      borderBottomLeftRadius: 0,
+      // borderRadius: "100%",
+      transition: {
+        scale: {
+          duration: 1.5,
+          ease: [0.9, 0, 0.14, 1],
+        },
+        borderBottomLeftRadius: {
+          duration: 1.5,
+          ease: "easeOut",
+        },
+        borderTopLeftRadius: {
+          duration: 1.5,
+          ease: "easeOut",
+        },
+        borderTopRightRadius: {
+          duration: 1.5,
+          ease: "easeOut",
+        },
+        x: {
+          duration: 1.5,
+          ease: [0.9, 0.01, 0.11, 1],
+        },
+        y: {
+          duration: 1.5,
+          ease: [0.9, 0.01, 0.11, 1],
+        },
+      },
+    },
+    exit: {
+      x: window.innerWidth,
+      y: window.innerHeight,
+      scale: 0.5,
+      borderTopRightRadius: "100%",
+      borderTopLeftRadius: "100%",
+      borderBottomLeftRadius: "100%",
+
+      // borderRadius: "100%",
+      transition: {
+        scale: {
+          duration: 1.5,
+          ease: [0.9, 0, 0.14, 1],
+        },
+        borderBottomLeftRadius: {
+          duration: 1.5,
+          ease: "easeOut",
+        },
+        borderTopLeftRadius: {
+          duration: 1.5,
+          ease: "easeOut",
+        },
+        borderTopRightRadius: {
+          duration: 1.5,
+          ease: "easeOut",
+        },
+        x: {
+          duration: 1.5,
+          ease: [0.9, 0, 0.14, 1],
+        },
+        y: {
+          duration: 1.5,
+          ease: [0.9, 0, 0.14, 1],
+        },
+      },
+    },
+  };
+  const fadeVariant = {
+    init: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
 
   /* useRefs */
 
+  const moveLeft = () => {
+    Object.values(flavours).map((item, index, flavourArray) => {
+      if (item.id === currentActiveId && flavourArray[index - 1]) {
+        const timeOut = setTimeout(() => {
+          // setExitingId(flavourArray[index - 1]?.id);
+          setExitingId("blackberryBlast");
+        }, 1500);
+        clearTimeout(timeOut);
+
+        // setCurrentActiveId(flavourArray[index - 1]?.id);
+        setCurrentActiveId("orangeCrush");
+      }
+    });
+  };
+  const moveRight = () => {
+    Object.values(flavours).map((item, index, flavourArray) => {
+      if (item.id === currentActiveId && flavourArray[index + 1]) {
+        // setExitingId(flavourArray[index + 1]?.id);
+        // setCurrentActiveId(flavourArray[index + 1]?.id);
+        setCurrentActiveId("blackberryBlast");
+        setExitingId("blackberryBlast");
+      }
+    });
+  };
+
   /* useEffects */
+  useEffect(() => {
+    setCurrentActiveId(activeFlavourId);
+    setExitingId(activeFlavourId);
+  }, [activeFlavourId]);
+  useEffect(() => {
+    if (animateDirection) {
+      if (animateDirection === "left") moveLeft();
+      else if (animateDirection === "right") moveRight();
+    }
+  }, [animateDirection]);
 
   /* api calls */
 
   /* helper functions */
+
+  const handleNext = () => {
+    if (animateDirection === "right") moveRight();
+    else setAnimateDirection("right");
+  };
+  const handlePrevious = () => {
+    if (animateDirection === "left") moveLeft();
+    else {
+      setAnimateDirection("left");
+    }
+  };
 
   /* render functions */
   const renderQuantity = () => {
@@ -50,7 +196,7 @@ const FlavourDetails = ({
         {quantities.map((item) => {
           return (
             <div
-              key={`${activeFlavourId}-${item}`}
+              key={`${currentActiveId}-${item}`}
               className={`quantityItem ${
                 activeQuantity === item ? "active" : ""
               }`}
@@ -68,19 +214,22 @@ const FlavourDetails = ({
     return (
       <div className="flavourImageWrapper">
         <Image
-          src={flavours[activeFlavourId].imageSource}
-          alt={flavours[activeFlavourId].headerText}
+          src={flavours[currentActiveId].imageSource}
+          alt={flavours[currentActiveId].headerText}
           className="flavourImage"
         />
-        <div className={`${bangers.variable} backgroundText`}>Juicy</div>
-        <div className="backgroundEffect" />
 
+        <div className={`${bangers.variable} backgroundText`}>Juicy</div>
+        <motion.div
+          key={`${currentActiveId}-bgEffect`}
+          className="backgroundEffect"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        />
         <div className="arrowsWrapper">
-          <div
-            className="iconLeftArrow iconArrow"
-            onClick={callbackOnPrevious}
-          />
-          <div className="iconRightArrow iconArrow" onClick={callbackOnNext} />
+          <div className="iconLeftArrow iconArrow" onClick={handlePrevious} />
+          <div className="iconRightArrow iconArrow" onClick={handleNext} />
         </div>
       </div>
     );
@@ -91,56 +240,73 @@ const FlavourDetails = ({
         <AnimatePresence mode="popLayout">
           <motion.h1
             className={`headerText ${minaFont.variable}`}
-            key={`h1-${activeFlavourId}`}
-            initial={{ opacity: 1 }}
+            key={`h1-${currentActiveId}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{
-              duration: 0.5,
+              duration: 1,
               // ease: "linear",
             }}
           >
-            {flavours[activeFlavourId].headerText}
+            {flavours[currentActiveId].headerText}
           </motion.h1>
         </AnimatePresence>
         <p className="descriptionText">
-          {flavours[activeFlavourId].detailedDescription}
+          {flavours[currentActiveId].detailedDescription}
         </p>
         <button className="primaryButton">View</button>
       </div>
     );
   };
+  if (!currentActiveId) return null;
 
+  const animateRight = animateDirection === "right";
   return (
-    <div className={`FlavourDetailsWrapper ${activeFlavourId}`}>
+    <div className={`FlavourDetailsWrapper ${currentActiveId}`}>
       {/* <div className="backgroundGradient" /> */}
-      <motion.div
-        key={`details-${activeFlavourId}`}
-        className="backgroundGradient"
-        layoutId={`bg-${activeFlavourId}`}
-        transition={{
-          layout: { duration: 1, ease: "easeInOut", delay: 0.25 },
-        }}
-        onLayoutAnimationComplete={() => setNavButtonsActive(true)}
-      />
-      <motion.div
-        initial={{ opacity: 0 }}
-        className="allContentWrapper"
-        animate={{
-          opacity: 1,
-          transition: {
-            duration: 0.5,
-            delay: 0.25,
-          },
-        }}
-      >
-        <NavigationBar
-          callbackOnFlavoursClick={callTriggerReset}
-          disableClick={!navButtonsActive}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`exit-${currentActiveId}`}
+          className={`backgroundGradient ${currentActiveId} z`}
+          layoutId={`bg-${currentActiveId}`}
+          initial={!animateRight ? "entryInit" : false}
+          variants={bgGradientVariants}
+          animate={!animateRight ? "animateIn" : "animate"}
+          exit={!animateRight ? false : "exit"}
+          transition={{
+            layout: { duration: 1, ease: "easeIn" },
+          }}
+          onLayoutAnimationComplete={() => setNavButtonsActive(true)}
         />
-        {renderCentralImageCarousel()}
-        {renderContent()}
-        {renderQuantity()}
-      </motion.div>
+      </AnimatePresence>
+
+      <motion.div
+        key={`sudo-${exitingId}`}
+        className={`backgroundGradient ${exitingId} x`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      />
+
+      <AnimatePresence>
+        <motion.div
+          initial={"init"}
+          className="allContentWrapper"
+          variants={fadeVariant}
+          animate={"animate"}
+          exit={"exit"}
+        >
+          <NavigationBar
+            callbackOnFlavoursClick={callTriggerReset}
+            disableClick={!navButtonsActive}
+          />
+
+          {renderQuantity()}
+          {renderCentralImageCarousel()}
+          {renderContent()}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
