@@ -116,10 +116,12 @@
   bottom: 20%;
   z-index: 1;
 }
-.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .flavourImage {
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .imageMotionWrapper {
+  z-index: 9;
+}
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .imageMotionWrapper .flavourImage {
   margin-bottom: 16px;
   height: auto;
-  z-index: 2;
 }
 .FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper {
   width: 100%;
@@ -243,18 +245,9 @@
   background: #fac996;
   color: black;
 }
-.FlavourDetailsWrapper.orangeCrush .backgroundEffect {
-  background-image: url("../../../public/flavours/orangeBackground.png");
-  background-repeat: no-repeat;
-}
-
 .FlavourDetailsWrapper.blackberryBlast .contentWrapper .primaryButton {
   background: #a991e3;
 }
-.FlavourDetailsWrapper.blackberryBlast .backgroundEffect {
-  background-image: url("../../../public/flavours/blackberryBackground.png");
-}
-
 @property --angle {
   syntax: "<angle>";
   initial-value: 0deg;

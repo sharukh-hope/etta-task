@@ -1,21 +1,10 @@
 "use client";
 import { Bangers, Mina, Outfit } from "next/font/google";
 import NavigationBar from "@/app/components/NavigationBar";
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { flavours } from "../constants/flavours.js";
-import {
-  animate,
-  AnimatePresence,
-  delay,
-  motion,
-  useAnimationControls,
-} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const bangers = Bangers({
   variable: "--font-bangers",
@@ -62,27 +51,27 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
       // borderRadius: "100%",
       transition: {
         scale: {
-          duration: 1.5,
+          duration: 0.75,
           ease: [0.9, 0, 0.14, 1],
         },
         borderBottomLeftRadius: {
-          duration: 1.5,
+          duration: 1,
           ease: "easeOut",
         },
         borderTopLeftRadius: {
-          duration: 1.5,
+          duration: 1,
           ease: "easeOut",
         },
         borderTopRightRadius: {
-          duration: 1.5,
+          duration: 1,
           ease: "easeOut",
         },
         x: {
-          duration: 1.5,
+          duration: 1,
           ease: [0.9, 0.01, 0.11, 1],
         },
         y: {
-          duration: 1.5,
+          duration: 1,
           ease: [0.9, 0.01, 0.11, 1],
         },
       },
@@ -216,22 +205,68 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
     );
   };
   const renderCentralImageCarousel = () => {
+    const imageVariants = {
+      init: { x: window.innerWidth },
+      animate: {
+        x: 0,
+        transition: {
+          duration: 1,
+          ease: [1, 0.01, 0.11, 0.8],
+        },
+      },
+      exit: {
+        x: window.innerWidth,
+        transition: {
+          duration: 1,
+          ease: [1, 0.01, 0.11, 0.8],
+        },
+      },
+    };
     return (
       <div className="flavourImageWrapper">
-        <Image
-          src={flavours[currentActiveId].imageSource}
-          alt={flavours[currentActiveId].headerText}
-          className="flavourImage"
-        />
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            className="imageMotionWrapper"
+            variants={imageVariants}
+            initial="init"
+            animate="animate"
+            exit={"exit"}
+            key={`${currentActiveId}-img`}
+          >
+            <Image
+              src={flavours[currentActiveId].imageSource}
+              alt={flavours[currentActiveId].headerText}
+              className="flavourImage"
+              loading="eager"
+            />
+          </motion.div>
+        </AnimatePresence>
 
         <div className={`${bangers.variable} backgroundText`}>Juicy</div>
-        <motion.div
-          key={`${currentActiveId}-bgEffect`}
-          className="backgroundEffect"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        />
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={`${currentActiveId}-mama`}
+            className="backgroundEffect"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+
+              transition: {
+                duration: 1,
+              },
+            }}
+            exit={{
+              opacity: 0,
+              transition: { duration: 1, ease: "easeOut" },
+            }}
+          >
+            <Image
+              src={flavours[currentActiveId].bgImageSource}
+              alt={`${currentActiveId}-bg`}
+            />
+          </motion.div>
+        </AnimatePresence>
+
         <div className="arrowsWrapper">
           <div className="iconLeftArrow iconArrow" onClick={handlePrevious} />
           <div className="iconRightArrow iconArrow" onClick={handleNext} />

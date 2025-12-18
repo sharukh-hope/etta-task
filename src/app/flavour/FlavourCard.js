@@ -132,6 +132,7 @@ const FlavourCard = ({
               src={imageSource}
               alt={headerText}
               className="flavourImage"
+              loading="eager"
             />
           </motion.div>
           {renderCircle()}

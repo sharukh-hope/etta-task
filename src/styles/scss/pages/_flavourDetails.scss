@@ -90,11 +90,14 @@
         bottom: 20%;
         z-index: 1;
       }
-      .flavourImage {
-        margin-bottom: 16px;
-        height: auto;
-        z-index: 2;
+      .imageMotionWrapper {
+        z-index: +9;
+        .flavourImage {
+          margin-bottom: 16px;
+          height: auto;
+        }
       }
+
       .arrowsWrapper {
         width: 100%;
         display: flex;
@@ -240,8 +243,7 @@
     }
   }
   .backgroundEffect {
-    background-image: url("../../../public/flavours/orangeBackground.png");
-    background-repeat: no-repeat;
+    // background-image: url("../../../public/flavours/orangeBackground.png");
   }
 }
 
@@ -252,7 +254,7 @@
     }
   }
   .backgroundEffect {
-    background-image: url("../../../public/flavours/blackberryBackground.png");
+    // background-image: url("../../../public/flavours/blackberryBackground.png");
   }
 }
 
