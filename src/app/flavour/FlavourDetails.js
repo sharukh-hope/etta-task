@@ -33,7 +33,7 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
   /* static variables */
   const quantities = [500, 125, 100];
   const bgGradientVariants = {
-    animate: { opacity: 1, transition: { duration: 1 } },
+    animate: { opacity: 1, transition: { duration: 0.1 } },
     entryInit: {
       x: window.innerWidth,
       y: window.innerHeight,
@@ -83,31 +83,30 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
       borderTopRightRadius: "100%",
       borderTopLeftRadius: "100%",
       borderBottomLeftRadius: "100%",
-
-      // borderRadius: "100%",
+      opacity: 0.75,
       transition: {
         scale: {
-          duration: 1.5,
+          duration: 1.25,
           ease: [0.9, 0, 0.14, 1],
         },
         borderBottomLeftRadius: {
-          duration: 1.5,
+          duration: 1.25,
           ease: "easeOut",
         },
         borderTopLeftRadius: {
-          duration: 1.5,
+          duration: 1.25,
           ease: "easeOut",
         },
         borderTopRightRadius: {
-          duration: 1.5,
+          duration: 1.25,
           ease: "easeOut",
         },
         x: {
-          duration: 1.5,
+          duration: 1.25,
           ease: [0.9, 0, 0.14, 1],
         },
         y: {
-          duration: 1.5,
+          duration: 1.25,
           ease: [0.9, 0, 0.14, 1],
         },
       },
@@ -135,24 +134,23 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
   const moveLeft = () => {
     Object.values(flavours).map((item, index, flavourArray) => {
       if (item.id === currentActiveId && flavourArray[index - 1]) {
-        const timeOut = setTimeout(() => {
-          // setExitingId(flavourArray[index - 1]?.id);
-          setExitingId("blackberryBlast");
+        setTimeout(() => {
+          setExitingId(flavourArray[index - 1]?.id);
+          // setExitingId("blackberryBlast");
         }, 1500);
-        clearTimeout(timeOut);
 
-        // setCurrentActiveId(flavourArray[index - 1]?.id);
-        setCurrentActiveId("orangeCrush");
+        setCurrentActiveId(flavourArray[index - 1]?.id);
+        // setCurrentActiveId("orangeCrush");
       }
     });
   };
   const moveRight = () => {
     Object.values(flavours).map((item, index, flavourArray) => {
       if (item.id === currentActiveId && flavourArray[index + 1]) {
-        // setExitingId(flavourArray[index + 1]?.id);
-        // setCurrentActiveId(flavourArray[index + 1]?.id);
-        setCurrentActiveId("blackberryBlast");
-        setExitingId("blackberryBlast");
+        setExitingId(flavourArray[index + 1]?.id);
+        setCurrentActiveId(flavourArray[index + 1]?.id);
+        // setCurrentActiveId("blackberryBlast");
+        // setExitingId("blackberryBlast");
       }
     });
   };
@@ -243,6 +241,7 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
         </AnimatePresence>
 
         <div className={`${bangers.variable} backgroundText`}>Juicy</div>
+
         <AnimatePresence mode="popLayout">
           <motion.div
             key={`${currentActiveId}-mama`}
@@ -260,10 +259,12 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
               transition: { duration: 1, ease: "easeOut" },
             }}
           >
-            <Image
-              src={flavours[currentActiveId].bgImageSource}
-              alt={`${currentActiveId}-bg`}
-            />
+            {flavours[currentActiveId].bgImageSource && (
+              <Image
+                src={flavours[currentActiveId].bgImageSource}
+                alt={`${currentActiveId}-bg`}
+              />
+            )}
           </motion.div>
         </AnimatePresence>
 
