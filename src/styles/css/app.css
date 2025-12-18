@@ -137,6 +137,11 @@
   height: 54px;
   width: 54px;
   cursor: pointer;
+  background-color: transparent;
+  transition: 0.5s;
+}
+.FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper .iconArrow:hover {
+  background-color: rgba(225, 225, 225, 0.2117647059);
 }
 .FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper .iconLeftArrow,
 .FlavourDetailsWrapper .allContentWrapper .flavourImageWrapper .arrowsWrapper .iconRightArrow {

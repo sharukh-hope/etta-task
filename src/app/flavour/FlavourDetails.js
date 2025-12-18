@@ -18,6 +18,102 @@ const outfitFont = Outfit({
   variable: "--font-outfit",
   weight: "600",
 });
+const bgGradientVariants = {
+  animate: { opacity: 1, transition: { duration: 0.1 } },
+  entryInit: {
+    x: window.innerWidth,
+    y: window.innerHeight,
+    borderTopRightRadius: "100%",
+    borderTopLeftRadius: "100%",
+    borderBottomLeftRadius: "100%",
+  },
+  animateIn: {
+    x: 0,
+    y: 0,
+    scale: 1,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    // borderRadius: "100%",
+    transition: {
+      scale: {
+        duration: 0.75,
+        ease: [0.9, 0, 0.14, 1],
+      },
+      borderBottomLeftRadius: {
+        duration: 1,
+        ease: "easeOut",
+      },
+      borderTopLeftRadius: {
+        duration: 1,
+        ease: "easeOut",
+      },
+      borderTopRightRadius: {
+        duration: 1,
+        ease: "easeOut",
+      },
+      x: {
+        duration: 1,
+        ease: [0.9, 0.01, 0.11, 1],
+      },
+      y: {
+        duration: 1,
+        ease: [0.9, 0.01, 0.11, 1],
+      },
+    },
+  },
+  exit: {
+    x: window.innerWidth,
+    y: window.innerHeight,
+    scale: 0.5,
+    borderTopRightRadius: "100%",
+    borderTopLeftRadius: "100%",
+    borderBottomLeftRadius: "100%",
+    opacity: 0.75,
+    transition: {
+      scale: {
+        duration: 1.25,
+        ease: [0.9, 0, 0.14, 1],
+      },
+      borderBottomLeftRadius: {
+        duration: 1.25,
+        ease: "easeOut",
+      },
+      borderTopLeftRadius: {
+        duration: 1.25,
+        ease: "easeOut",
+      },
+      borderTopRightRadius: {
+        duration: 1.25,
+        ease: "easeOut",
+      },
+      x: {
+        duration: 1.25,
+        ease: [0.9, 0, 0.14, 1],
+      },
+      y: {
+        duration: 1.25,
+        ease: [0.9, 0, 0.14, 1],
+      },
+    },
+  },
+};
+const fadeVariant = {
+  init: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 2,
+      delay: 0.5,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 1,
+    },
+  },
+};
 
 const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
   /* state variables */
@@ -32,102 +128,6 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
 
   /* static variables */
   const quantities = [500, 125, 100];
-  const bgGradientVariants = {
-    animate: { opacity: 1, transition: { duration: 0.1 } },
-    entryInit: {
-      x: window.innerWidth,
-      y: window.innerHeight,
-      borderTopRightRadius: "100%",
-      borderTopLeftRadius: "100%",
-      borderBottomLeftRadius: "100%",
-    },
-    animateIn: {
-      x: 0,
-      y: 0,
-      scale: 1,
-      borderTopRightRadius: 0,
-      borderTopLeftRadius: 0,
-      borderBottomLeftRadius: 0,
-      // borderRadius: "100%",
-      transition: {
-        scale: {
-          duration: 0.75,
-          ease: [0.9, 0, 0.14, 1],
-        },
-        borderBottomLeftRadius: {
-          duration: 1,
-          ease: "easeOut",
-        },
-        borderTopLeftRadius: {
-          duration: 1,
-          ease: "easeOut",
-        },
-        borderTopRightRadius: {
-          duration: 1,
-          ease: "easeOut",
-        },
-        x: {
-          duration: 1,
-          ease: [0.9, 0.01, 0.11, 1],
-        },
-        y: {
-          duration: 1,
-          ease: [0.9, 0.01, 0.11, 1],
-        },
-      },
-    },
-    exit: {
-      x: window.innerWidth,
-      y: window.innerHeight,
-      scale: 0.5,
-      borderTopRightRadius: "100%",
-      borderTopLeftRadius: "100%",
-      borderBottomLeftRadius: "100%",
-      opacity: 0.75,
-      transition: {
-        scale: {
-          duration: 1.25,
-          ease: [0.9, 0, 0.14, 1],
-        },
-        borderBottomLeftRadius: {
-          duration: 1.25,
-          ease: "easeOut",
-        },
-        borderTopLeftRadius: {
-          duration: 1.25,
-          ease: "easeOut",
-        },
-        borderTopRightRadius: {
-          duration: 1.25,
-          ease: "easeOut",
-        },
-        x: {
-          duration: 1.25,
-          ease: [0.9, 0, 0.14, 1],
-        },
-        y: {
-          duration: 1.25,
-          ease: [0.9, 0, 0.14, 1],
-        },
-      },
-    },
-  };
-  const fadeVariant = {
-    init: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        duration: 2,
-        delay: 0.5,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 1,
-      },
-    },
-  };
 
   /* useRefs */
 
@@ -269,8 +269,11 @@ const FlavourDetails = ({ activeFlavourId, callTriggerReset }) => {
         </AnimatePresence>
 
         <div className="arrowsWrapper">
-          <div className="iconLeftArrow iconArrow" onClick={handlePrevious} />
-          <div className="iconRightArrow iconArrow" onClick={handleNext} />
+          <button
+            className="iconLeftArrow iconArrow"
+            onClick={handlePrevious}
+          />
+          <button className="iconRightArrow iconArrow" onClick={handleNext} />
         </div>
       </div>
     );
