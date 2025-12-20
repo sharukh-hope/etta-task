@@ -132,7 +132,6 @@ const FlavourCard = ({
               src={imageSource}
               alt={headerText}
               className="flavourImage"
-              loading="eager"
             />
           </motion.div>
           {renderCircle()}
@@ -140,9 +139,26 @@ const FlavourCard = ({
       </motion.div>
     );
   };
+  const renderPseudoImage = () => {
+    return (
+      <div
+        style={{
+          position: "absolute",
+          opacity: 0,
+          pointerEvents: "none",
+          width: 1,
+          height: 1,
+          overflow: "hidden",
+        }}
+      >
+        <Image key={`sudoImg-${id}`} src={imageSource} alt="" priority />
+      </div>
+    );
+  };
 
   return (
     <AnimatePresence mode="wait" onExitComplete={onExitComplete}>
+      {renderPseudoImage()}
       {!isUnmounting && (
         <motion.div
           className={`FlavourCardWrapper`}
