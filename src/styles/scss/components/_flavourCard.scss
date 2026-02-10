@@ -74,13 +74,14 @@
       justify-content: center;
       align-items: center;
       position: relative;
-      min-height: 615px;
+      min-height: 560px;
       .imageWrapper {
         height: 100%;
         width: 100%;
         position: absolute;
         display: flex;
         justify-content: center;
+        top: -40px;
       }
       .flavourImage {
       }

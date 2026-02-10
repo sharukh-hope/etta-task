@@ -328,7 +328,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  min-height: 615px;
+  min-height: 560px;
 }
 .FlavourCardWrapper .flavourImageWrapper .graphicsWrapper .imageWrapper {
   height: 100%;
@@ -336,6 +336,7 @@
   position: absolute;
   display: flex;
   justify-content: center;
+  top: -40px;
 }
 .FlavourCardWrapper .flavourImageWrapper .graphicsWrapper .backgroundCircle {
   aspect-ratio: 1;
@@ -377,9 +378,12 @@
   z-index: 12;
 }
 .NavigationBarWrapper .navLinks .navLink {
-  padding: 0px 32px;
+  margin: 0px 32px;
   font-size: 16px;
   cursor: pointer;
+}
+.NavigationBarWrapper .navLinks .navLink.disabled {
+  cursor: not-allowed;
 }
 .NavigationBarWrapper .userSpace {
   z-index: 12;

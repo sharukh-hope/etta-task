@@ -16,22 +16,28 @@ const NavigationBar = ({ callbackOnFlavoursClick, disableClick = true }) => {
         >
           Flavours
         </div>
-        <Link href={"#"} className="navLink">
+        <Link href={"#"} className="navLink disabled">
           Drinks
         </Link>
-        <Link href={"#"} className="navLink">
+        <Link href={"#"} className="navLink disabled">
           Fruit
         </Link>
-        <Link href={"#"} className="navLink">
+        <Link href={"#"} className="navLink disabled">
           About
         </Link>
-        <Link href={"#"} className="navLink">
+        <Link href={"#"} className="navLink disabled">
           Contact
         </Link>
       </nav>
       <div className="userSpace">
-        <button className="iconButton iconUser"></button>
-        <button className="iconButton iconCart">
+        <button
+          className="iconButton iconUser"
+          style={{ cursor: "not-allowed" }}
+        ></button>
+        <button
+          className="iconButton iconCart"
+          style={{ cursor: "not-allowed" }}
+        >
           <div className="cartItemsNumber">2</div>
         </button>
       </div>

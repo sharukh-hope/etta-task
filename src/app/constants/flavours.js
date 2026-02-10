@@ -4,6 +4,8 @@ import orangeBg from "../../../public/flavours/orangeBackground.png";
 import strawberry from "../../../public/flavours/strawberry.png";
 import blackberry from "../../../public/flavours/blackberry.png";
 import blackberryBg from "../../../public/flavours/blackberryBackground.png";
+import lemonBg from "../../../public/flavours/lemonBackground.png";
+import strawberryBg from "../../../public/flavours/strawberryBackground.png";
 
 export const flavours = {
   cheekyLime: {
@@ -14,6 +16,7 @@ export const flavours = {
     detailedDescription:
       "Discover a world of vibrant flavors with our premium juice selection. At Fresh & Juicy, we believe in the power of nature’s finest ingredients to bring you delicious",
     imageSource: cheeky,
+    bgImageSource: lemonBg,
   },
   orangeCrush: {
     id: "orangeCrush",
@@ -33,6 +36,7 @@ export const flavours = {
     detailedDescription:
       "Discover a world of vibrant flavors with our premium juice selection. At Fresh & Juicy, we believe in the power of nature’s finest ingredients to bring you delicious",
     imageSource: strawberry,
+    bgImageSource: strawberryBg,
   },
   blackberryBlast: {
     id: "blackberryBlast",

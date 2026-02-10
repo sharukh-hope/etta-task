@@ -7,8 +7,8 @@ const plexSans = IBM_Plex_Sans({
 });
 
 export const metadata = {
-  title: "Etta-Task",
-  description: "An interview task",
+  title: "Juicy.",
+  description: "An introduction to Juicy.",
 };
 
 export default function RootLayout({ children }) {
